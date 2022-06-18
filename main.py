@@ -14,15 +14,14 @@ from selenium.webdriver.chrome.options import Options
 import time
 
 #Path to the chrome driver
-#path = "chromedriver_win32\chromedriver.exe"
+path = "chromedriver_win32\chromedriver.exe"
 
 # Function returns a dict with the results
 def get_results(search_term):
     url = "https://www.google.co.in/search?q="
-    #option = webdriver.ChromeOptions()
-    option = webdriver.FirefoxOptions()
+    option = webdriver.ChromeOptions()
     option.add_argument('headless')
-    browser = webdriver.firefox(options=option)
+    browser = webdriver.chrome(path, options=option)
     browser.get(url+search_term)
     browser.find_element(By.ID,"L2AGLb").click()
     #search_box = browser.find_element(By.XPATH, "/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/div")
