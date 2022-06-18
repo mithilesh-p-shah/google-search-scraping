@@ -21,7 +21,7 @@ def get_results(search_term):
     url = "https://www.google.co.in/search?q="
     option = webdriver.ChromeOptions()
     option.add_argument('headless')
-    browser = webdriver.chrome(path, options=option)
+    browser = webdriver.Chrome(path, options=option)
     browser.get(url+search_term)
     browser.find_element(By.ID,"L2AGLb").click()
     #search_box = browser.find_element(By.XPATH, "/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/div")
@@ -34,14 +34,17 @@ def get_results(search_term):
         #print(links.text)
     except :
         links = ""
-    try:
-        results = browser.find_elements(By.TAG_NAME,'h3')
-    except:
-        results = []
-    if(links == ""):
+
+    results = browser.find_elements(By.TAG_NAME,'h3')
+
+    if (len(results)<2):
+        results_new = ["","",""]
+    if(links == "" and len(results)>2):
         return (links,results[0].text,results[1].text, results[2].text)
-    else:
+    elif(links != "" and len(results)>2):
         return (links.text,results[0].text,results[1].text, results[2].text)
+    else:
+        return(links,results_new[0],results_new[1],results_new[2])
     browser.close()
 
     #print(links[0])
@@ -51,7 +54,8 @@ def get_results(search_term):
       #  print(title)
        # results.append(title)
 
-
+output= get_results("agrim agrarprodukte im und exportgessels chaft")
+print(output)
     #return results
 # Load the input data-set
 input = pd.read_excel('input.xlsx')
@@ -60,7 +64,6 @@ input_values = input['clean_name'].unique()
 final_table = []
 for names in input_values :
     return_values = get_results(names)
-
     dict={}
     dict.update({"clean_name": names})
     dict.update({"search_term_1" : return_values[0]})
