@@ -72,10 +72,10 @@ for names in input_values :
     dict.update({"search_term_4": return_values[3]})
     final_table.append(dict)
     print(len(final_table))
-
-#Save the ouput to an excel file
-matched = pd.DataFrame(final_table)
-matched.to_excel("matched.xlsx")
+    if(len(final_table)%500==0):
+    #Save the ouput to an excel file
+        matched = pd.DataFrame(final_table)
+        matched.to_excel("matched.xlsx")
 
 
 
