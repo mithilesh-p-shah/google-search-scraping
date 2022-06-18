@@ -55,7 +55,7 @@ def get_results(search_term):
     #return results
 # Load the input data-set
 input = pd.read_excel('input.xlsx')
-input_values = input['clean_name_updated'].unique()
+input_values = input['clean_name'].unique()
 #Temp dict to store the results
 final_table = []
 for names in input_values :
